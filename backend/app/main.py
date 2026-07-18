@@ -131,24 +131,23 @@ def upload_file(file: UploadFile = File(...)):
     directory, and returns the public URL and determined MIME type category
     (image, video, audio, or file).
     """
+
     file_ext = os.path.splitext(file.filename)[1]
     unique_filename = f"{uuid.uuid4()}{file_ext}"
     file_path = os.path.join(UPLOAD_DIR, unique_filename)
-    
+
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-        
-    # Return file access url. PUBLIC_BASE_URL must be set in production so
-    # uploaded-file links resolve to the deployed backend, not localhost.
-    
 
-PUBLIC_BASE_URL = os.getenv(
-    "PUBLIC_BASE_URL",
-    "https://signal-production-c83e.up.railway.app"
-)
+    # Return file access URL. Uses Railway URL in production.
+    PUBLIC_BASE_URL = os.getenv(
+        "PUBLIC_BASE_URL",
+        "https://signal-production-c83e.up.railway.app"
+    )
+
     file_url = f"{PUBLIC_BASE_URL}/static_uploads/{unique_filename}"
-    
-    # Determine type category based on file extension
+
+    # Determine file type
     mime_type = "file"
     if file_ext.lower() in [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"]:
         mime_type = "image"
@@ -156,11 +155,11 @@ PUBLIC_BASE_URL = os.getenv(
         mime_type = "video"
     elif file_ext.lower() in [".mp3", ".wav", ".m4a"]:
         mime_type = "audio"
-        
+
     return {
         "url": file_url,
         "filename": file.filename,
-        "type": mime_type
+        "type": mime_type,
     }
 
 @app.get("/api/health")
