@@ -16,7 +16,7 @@ type SocketCallback = (data: any) => void;
  */
 // Duplicated from api.ts (not imported) so this module stays independently
 // readable and dependency-free of the REST client.
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = "https://signal-production-c83e.up.railway.app";
 // WebSocket needs ws(s):// instead of http(s):// — same host/port otherwise,
 // so https://my-app.onrender.com correctly becomes wss://my-app.onrender.com.
 const WS_BASE_URL = API_BASE_URL.replace(/^http/, 'ws');
