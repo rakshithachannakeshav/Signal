@@ -102,7 +102,10 @@ app.mount("/static_uploads", StaticFiles(directory=UPLOAD_DIR), name="static_upl
 # CORS_ORIGINS accepts a comma-separated list, so a deployed frontend origin
 # can be added via environment configuration instead of a code change.
 _default_origins = "http://localhost:3000,http://127.0.0.1:3000"
-origins = [o.strip() for o in os.environ.get("CORS_ORIGINS", _default_origins).split(",") if o.strip()]
+origins = [
+    "http://localhost:3000",
+    "https://signal-pink-pi.vercel.app",
+]
 
 app.add_middleware(
     CORSMiddleware,
