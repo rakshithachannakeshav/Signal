@@ -8,7 +8,7 @@ import { User, Conversation, Message } from './types';
 
 // Falls back to localhost for local development; set NEXT_PUBLIC_API_URL in
 // production to point at the deployed backend (see .env.local.example).
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://signal-production-c83e.up.railway.app';
 
 /**
  * Core fetch wrapper that automatically attaches the authorization token
