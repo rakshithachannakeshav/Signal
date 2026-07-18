@@ -140,8 +140,13 @@ def upload_file(file: UploadFile = File(...)):
         
     # Return file access url. PUBLIC_BASE_URL must be set in production so
     # uploaded-file links resolve to the deployed backend, not localhost.
-    public_base_url = os.environ.get("PUBLIC_BASE_URL", "http://localhost:8000")
-    file_url = f"{public_base_url}/static_uploads/{unique_filename}"
+    
+
+PUBLIC_BASE_URL = os.getenv(
+    "PUBLIC_BASE_URL",
+    "https://signal-production-c83e.up.railway.app"
+)
+    file_url = f"{PUBLIC_BASE_URL}/static_uploads/{unique_filename}"
     
     # Determine type category based on file extension
     mime_type = "file"
